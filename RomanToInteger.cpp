@@ -1,3 +1,6 @@
+// Approach:
+// Do what said in the problem statement
+// Rules are given in problem statement itself
 class Solution {
 public:
     int romanToInt(string s) {
