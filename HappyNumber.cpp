@@ -1,20 +1,32 @@
 // https://leetcode.com/problems/happy-number/
 // approach:
-// intuitively limit <= 100 steps
+// there is a fixed transition for fixed n
+// our goal is to detect a cycle in it
+// or it ends at 1
+// tortoise and hare / slow and fast pointer algorithm
 
 class Solution {
 public:
+    int next(int n) {
+        int s = 0;
+        while (n > 0) {
+            s += (n % 10) * (n % 10);
+            n /= 10;
+        }
+        return s;
+    }
     bool isHappy(int n) {
-        int limit = 100, num = n;
-        for (int i = 0; i < limit; i++) {
-            int s = 0;
-            while (num > 0) {
-                s += ((num % 10) * (num % 10));
-                num /= 10;
-            }
-            if (s == 1)
+        int slow = n, fast = next(n);
+        while (1) {
+            cout << "fast " << fast << " slow " << slow << '\n';
+            if (fast == 1) {
                 return true;
-            num = s;
+            }
+            if (fast == slow) {
+                return false;
+            }
+            fast = next(next(fast));
+            slow = next(slow);
         }
         return false;
     }
