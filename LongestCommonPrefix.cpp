@@ -1,4 +1,5 @@
 // Approach:
+// clean code
 // Sort strings and it is sufficient to compare the first & last strings
 
 class Solution {
