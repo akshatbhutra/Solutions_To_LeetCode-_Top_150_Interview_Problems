@@ -1,5 +1,5 @@
 // Approach:
-// Since constraints are small, so brute force is sufficient
+// Sort strings and it is sufficient to compare the first & last strings
 
 class Solution {
 public:
@@ -8,17 +8,14 @@ public:
         for (int i = 0; i < (int)(strs.size()); i++) {
             m = min(m, (int)(strs[i].size()));
         }
-        int i = 0;
-        while (i < m) {
-            bool ok = 1;
-            set<char> s;
-            for (int j = 0; j < n; j++) {
-                s.insert(strs[j][i]);
-            }
-            if ((int)(s.size()) != 1)
+        sort(strs.begin(), strs.end());
+        string ans = "";
+        for (int i = 0; i < m; i++) {
+            if (strs[0][i] == strs[n - 1][i])
+                ans += strs[0][i];
+            else
                 break;
-            i++;
         }
-        return strs[0].substr(0, i);
+        return ans;
     }
 };
