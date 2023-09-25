@@ -9,68 +9,22 @@
  * };
  */
 
-// Approach:
-// Two pointer Approach: Maintain two pointers and iterate over the two lists.
+// Recursive Solution
 
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        ListNode *cur1 = list1, *cur2 = list2, *ans = NULL, *prev, *newnode;
-        while (cur1 != NULL || cur2 != NULL) {
-            if (cur1 != NULL && cur2 != NULL) {
-                if (ans == NULL) {
-                    if (cur1->val < cur2->val) {
-                        ans = new ListNode(cur1->val);
-                        cur1 = cur1->next;
-                    }
-                    else {
-                        ans = new ListNode(cur2->val);
-                        cur2 = cur2->next;
-                    }
-                    prev = ans;
-                }
-                else {
-                    if (cur1->val < cur2->val) {
-                        newnode = new ListNode(cur1->val);
-                        prev->next = newnode;
-                        cur1 = cur1->next;
-                        prev = newnode;
-                    }
-                    else {
-                        newnode = new ListNode(cur2->val);
-                        prev->next = newnode;
-                        cur2 = cur2->next;
-                        prev = newnode;
-                    }
-                }  
-            }
-            else if (cur1 == NULL) {
-                    if (ans == NULL) {
-                        ans = new ListNode(cur2->val);
-                        cur2 = cur2->next;
-                        prev = ans;
-                    }
-                    else {
-                            newnode = new ListNode(cur2->val);
-                            prev->next = newnode;
-                            cur2 = cur2->next;
-                            prev = newnode;
-                    }
-            }
-            else if (cur2 == NULL) {
-                    if (ans == NULL) {
-                            ans = new ListNode(cur1->val);
-                            cur1 = cur1->next;
-                            prev = ans;
-                    }
-                    else {
-                            newnode = new ListNode(cur1->val);
-                            prev->next = newnode;
-                            cur1 = cur1->next;
-                            prev = newnode;
-                    }
-            }
+        if (list1 == NULL)
+            return list2;
+        if (list2 == NULL)
+            return list1;
+        if (list1->val < list2->val)  {
+            list1->next = mergeTwoLists(list1->next, list2);
+            return list1;
         }
-        return ans;
+        else  {
+            list2->next = mergeTwoLists(list2->next, list1);
+            return list2;
+        }
     }
 };
