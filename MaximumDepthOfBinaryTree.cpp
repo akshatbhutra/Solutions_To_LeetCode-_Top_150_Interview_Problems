@@ -10,22 +10,36 @@
  * };
  */
 
-// Approach:
+// Approach1:
 // DFS and passing depth as parameter
+
+// class Solution {
+// public:
+//     int m = 0;
+//     void dfs(TreeNode* u, int d) {
+//         m = max(m, d);
+//         if (u->left != NULL)
+//             dfs(u->left, d + 1);
+//         if (u->right != NULL)
+//             dfs(u->right, d + 1);
+//     }
+//     int maxDepth(TreeNode* root) {
+//         if (root != NULL)
+//             dfs(root, 1);
+//         return m;
+//     }
+// };
+
+
+
+// Approach2:
+// recursion
 
 class Solution {
 public:
-    int m = 0;
-    void dfs(TreeNode* u, int d) {
-        m = max(m, d);
-        if (u->left != NULL)
-            dfs(u->left, d + 1);
-        if (u->right != NULL)
-            dfs(u->right, d + 1);
-    }
     int maxDepth(TreeNode* root) {
-        if (root != NULL)
-            dfs(root, 1);
-        return m;
+        if (root == NULL)
+            return 0;
+        return 1 + max(maxDepth(root->left), maxDepth(root->right));
     }
 };
