@@ -11,38 +11,23 @@
 
 // https://leetcode.com/problems/reverse-linked-list/
 // approach:
-// get original values, reverse values and create new linked list
+// reverse in place
 
 class Solution {
 public:
-    ListNode* make(vector<int> v) {
-        int n = v.size();
-        ListNode* root = new ListNode(v[0]), *prev = root;
-        for (int i = 1; i < n; i++) {
-            ListNode* cur = new ListNode(v[i]);
-            prev->next = cur;
-            prev = cur;
-        }
-        return root;
-    }
-
-    vector<int> get(ListNode* r) {
-        vector<int> v;
-        while(r != NULL) {
-            v.push_back(r->val);
-            r = r->next;
-        }
-        return v;
-    }
     
     ListNode* reverseList(ListNode* head) {
         if(head == NULL)
             return NULL;
-        vector<int> v = get(head);
-        int n = (int)(v.size());
-        for (int i = 0; i < n / 2; i++) {
-            swap(v[i], v[n - 1 - i]);
+        ListNode* cur = head, *prev = NULL, *forward;
+        while (1) {
+            if (cur == NULL)
+                break;
+            forward = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = forward;
         }
-        return make(v);
+        return prev;
     }
 };
