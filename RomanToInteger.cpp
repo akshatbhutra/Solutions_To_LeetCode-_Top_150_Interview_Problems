@@ -1,56 +1,34 @@
-// Approach:
-// Do what said in the problem statement
-// Rules are given in problem statement itself
+// https://leetcode.com/problems/roman-to-integer/
+// approach
+// subtract the character value if it is followed by bigger value
+// else add
+
 class Solution {
 public:
+    int value(char c) {
+        if (c == 'I')
+            return 1;
+        else if (c == 'V')
+            return 5;
+        else if (c == 'X')
+            return 10;
+        else if (c == 'L')
+            return 50;
+        else if (c == 'C')
+            return 100;
+        else if (c == 'D')
+            return 500;
+        else
+            return 1000;
+    }
     int romanToInt(string s) {
         int n = (int)(s.size()), ans = 0;
         for (int i = 0; i < n; i++) {
-            if (s[i] == 'I') {
-                if (i + 1 < n && s[i + 1] == 'V') { 
-                    ans += 4;
-                    i++;
-                }
-                else if (i + 1 < n && s[i + 1] == 'X') {
-                    ans += 9;
-                    i++;
-                }
-                else   
-                    ans++;
-            }
-            else if (s[i] == 'X') {
-                if (i + 1 < n && s[i + 1] == 'L') { 
-                    ans += 40;
-                    i++;
-                }
-                else if (i + 1 < n && s[i + 1] == 'C') {
-                    ans += 90;
-                    i++;
-                }
-                else   
-                    ans += 10;
-            }
-            else if (s[i] == 'C') {
-                if (i + 1 < n && s[i + 1] == 'D') { 
-                    ans += 400;
-                    i++;
-                }
-                else if (i + 1 < n && s[i + 1] == 'M') {
-                    ans += 900;
-                    i++;
-                }
-                else   
-                    ans += 100;
-            }
-            else if (s[i] == 'V') 
-                    ans += 5;
-            else if (s[i] == 'L')
-                    ans += 50;
-            else if (s[i] == 'D')
-                    ans += 500;
-            else if (s[i] == 'M')
-                    ans += 1000;
+            if (i + 1 < n && value(s[i]) < value(s[i + 1]))
+               ans -= value(s[i]);
+            else
+                ans += value(s[i]);
         }
         return ans;
-    }
+    }   
 };
