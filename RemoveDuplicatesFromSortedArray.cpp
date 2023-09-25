@@ -1,18 +1,21 @@
 // Approach:
-// Use a set data structure to store unique values in sorted order
-// then overwrite the unique values in the beginning of array
-
+// Without set data structure
+// Maintain pointers and "bypass" duplicates
+ 
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        set<int> s;
-        for (auto &e: nums)
-                s.insert(e);
-        int k = (int)(s.size());
-        for (int i = 0; i < k; i++) {
-            nums[i] = *(s.begin());
-            s.erase(s.begin());
+        int n = (int)(nums.size());
+        int cur_idx = 0;
+        for (int i = 0; i < n; i++) {
+            int j = i;
+            while (j < n && nums[j] == nums[i]) {
+                j++;
+            }
+            i = j - 1;
+            nums[cur_idx] = nums[i];
+            cur_idx++;
         }
-        return k;
+        return cur_idx;
     }
 };
