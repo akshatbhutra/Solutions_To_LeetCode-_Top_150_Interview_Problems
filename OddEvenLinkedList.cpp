@@ -10,41 +10,28 @@
  */
 
 // approach
-// O(N) space solution
-
+// [odd nodes]->[even nodes]
 class Solution {
 public:
-    ListNode* make(vector<int> v) {
-        int n = v.size();
-        if (n == 0)
-            return NULL;
-        ListNode* root = new ListNode(v[0]), *prev = root;
-        for (int i = 1; i < n; i++) {
-            ListNode* cur = new ListNode(v[i]);
-            prev->next = cur;
-            prev = cur;
-        }
-        return root;
-    }
-
-    vector<int> get(ListNode* r) {
-        vector<int> v;
-        while(r != NULL) {
-            v.push_back(r->val);
-            r = r->next;
-        }
-        return v;
-    }
-    
     ListNode* oddEvenList(ListNode* head) {
-        vector<int> v =  get(head), vv;
-        int n = (int)(v.size());
-        for (int i = 0; i < n; i += 2) {
-            vv.push_back(v[i]);   
+        if (head == NULL)
+			return NULL;
+        ListNode* odd_node, *even_node, *evenhead;
+		odd_node = head;
+		even_node = head->next;
+		evenhead = head->next;
+
+		while (even_node != NULL and even_node->next != NULL) {
+			odd_node->next = odd_node->next->next;
+			even_node->next = even_node->next->next;
+
+			odd_node = odd_node->next;
+			even_node = even_node->next;
         }
-        for (int i = 1; i < n; i += 2) {
-            vv.push_back(v[i]);   
-        }
-        return make(vv);
+
+		odd_node->next = evenhead;
+            
+
+		return head;
     }
 };
