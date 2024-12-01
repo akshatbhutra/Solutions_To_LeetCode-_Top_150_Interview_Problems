@@ -1,4 +1,4 @@
-// Approach:
+// Approach=>
 // Greedy
 // If we will sell on day i best to purchase on lowest cost before it
 
